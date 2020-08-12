@@ -105,13 +105,29 @@ class  CBlockC {  //в паланах сделаь это базовым кла�
     drawCircle(this.canvas,x,y,v*4,'#37b049');
    // this.canvas.JSON.circle(x,y,v*4);
   };
+  RewGrafCLine(element, x, y){
+    y+=30;
+    x+=30;
+    let height=this.gheight-120;
+    let wight=this.width-60;
+    let price=this.price;//max min
+    let data=this.data;
+    let poz=data.length>200?data.length-200:1;
+    let timestart=data[poz].timestamp;
+    let timeend  =data[data.length-1].timestamp;
+    y+=Number((element.price-price.min)/(price.max-price.min)*height);
+    x+=Number((element.timestamp-timestart)/(timeend-timestart)*wight);
+    this.canvas.lineTo(x, y);  //рисуем линию
+  };
   Rew(){
-    var can=this.canvas;  can.shadowColor = "gray";  can.shadowOffsetX = 1;  can.shadowOffsetY = 1;  can.shadowBlur = 5;
+    var can=this.canvas;  can.shadowColor = "gray";  can.shadowOffsetX = 1;  can.shadowOffsetY = 1;  can.shadowBlur = 5; //can.lineWidth = 2;
     var d=this.data;
     let y=0,x=0,lasttype=0;
     can.clearRect(x,y,this.width,this.gheight);//для графика надо зачищать область
     let volume=0;
+
     this.price.max=-Infinity; this.price.min=Infinity;  for (let i=d.length-200>1?d.length-200:1; i<d.length; i++){ this.InFinMax(d[i].price,this.price);}
+    can.moveTo(0, 0); for (let i=d.length-210>1?d.length-210:1; i<d.length; i++){ this.RewGrafCLine(d[i],x,y);} can.stroke();
     for (let i=d.length-200>1?d.length-200:1; i<d.length; i++){
       if (d[i].price==d[i-1].price) {volume+=d[i].volume;} else {this.RewGrafC(d[i],x,y,volume); volume=0;}
     }

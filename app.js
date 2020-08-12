@@ -129,7 +129,7 @@ class  CBlockC {  //в паланах сделаь это базовым кла�
     this.price.max=-Infinity; this.price.min=Infinity;  for (let i=d.length-200>1?d.length-200:1; i<d.length; i++){ this.InFinMax(d[i].price,this.price);}
     can.moveTo(0, 0); for (let i=d.length-210>1?d.length-210:1; i<d.length; i++){ this.RewGrafCLine(d[i],x,y);} can.stroke();
     for (let i=d.length-200>1?d.length-200:1; i<d.length; i++){
-      if (d[i].price==d[i-1].price) {volume+=d[i].volume;} else {this.RewGrafC(d[i],x,y,volume); volume=0;}
+      if (d[i].timestamp==d[i-1].timestamp) {volume+=d[i].volume;} else {this.RewGrafC(d[i],x,y,volume); volume=0;}
     }
     //if (volume>0) this.RewGrafC(d[length-1],x,y,volume);//обнова последнего круга
 
